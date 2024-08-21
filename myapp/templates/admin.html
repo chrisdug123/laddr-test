@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <h1>Locations</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag()}}
+        <div>
+            {{form.location_name}}
+            {% for error in form.location_name.errors %}
+            <div style="color:red"></div>
+                {{error}} 
+            </div>
+            {% endfor %}
+        </div>
+       
+        <div>
+            
+            {{form.submit}}
+        </div>
+    </form>
+
+    <ul>Locations</ul>
+    {% for location in locations %}
+    <li>{{location.location_name}}</li>
+    {% endfor %}
+</div>
+<div>
+    <h1>Users</h1>
+    <ul>Users</ul>
+    {% for user in users %}
+    <li>{{user.username}}</li>
+    <button action="/admin" method="post"> Remove User</button>
+    {% endfor %}
+</div>
+{% endblock %}

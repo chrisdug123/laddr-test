@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Share "{{ recipe.title }}" with: </h2>
+<div>
+    <h3>Description:</h3>
+    <p>{{recipe.description}}</p>
+</div>
+<form method="POST">
+    <div>
+        <label for="sharee">Select a user: </label>
+        <select name="sharee" id="sharee">
+            {% for user in users%}
+            <option value="{{user.id}}">{{user.username}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <button type="submit">Share Recipe</button>
+    </div>
+
+</form>
+{% endblock %}

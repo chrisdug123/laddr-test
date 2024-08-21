@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Recipe shared with me</h2>
+<ul>
+    {% for share in shared %}
+    <li>{{share.recipe.title}} by {{share.sharer.username}}</li>
+    <a href="{{url_for('share_recipe', recipe_id=share.recipe.id)}}">{{share.recipe.description}}</a>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block content %}
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+<style>
+  .div-1{
+    height: 50px;
+    width:50%;
+  }
+</style>
+<div>
+    <h1>Checkin</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag()}}
+        <div>
+            <p>Hi {{user}}</p>
+            <div>
+            <select name="location_name">
+            {% for location in locations%}
+            <option value="{{location.location_name}}">{{location.location_name}}</option>
+            {% endfor %}
+            </select>
+            </div>  
+            {% for error in form.location_name.errors %}
+            <div style="color:red"></div>
+                {{error}} 
+            </div>
+            {% endfor %}
+        </div>
+
+        <div>
+            {{form.submit}}
+        </div>
+        
+    </form>
+</div>
+
+
+
+  <div id="laddrtable" ></div>
+  <div id="eventstable" ></div>
+
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<script>
+  var userstabledata = {{userstabledata|tojson}}
+  console.log(userstabledata)
+ new gridjs.Grid({
+  columns: [
+    {
+      data:(row)=>row.Username,
+      name:"Name",
+      width:'10%'
+    },
+    {
+      data:(row)=>row.Score,
+      name:"Score",
+      width:'10%',
+      sort:true
+    }],
+  search: true,
+  fixedHeader: true,
+  height: '200px',
+  data:userstabledata,
+  language: {
+    'search': {
+      'placeholder': 'Search...'
+    
+  }}
+}).render(document.getElementById("laddrtable"));
+
+</script>
+
+<script>
+  var eventtableheaders = {{eventtableheaders|tojson}}
+  var eventtableheaders1={{eventtableheaders1|tojson}}
+  console.log(eventtableheaders)
+  ///today=eventstabledata[0]
+  ///day1=eventstabledata[1]
+  ///console.log(today.data)
+  new gridjs.Grid({
+  columns: [
+    {
+      data:(row)=>row['Timeslot'],
+      name:"",
+      width:'10%'
+    },
+    {
+      data:(row)=>row['1'],
+      name:eventtableheaders1[0],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['2'],
+      name:eventtableheaders1[1],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['3'],
+      name:eventtableheaders1[2],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['4'],
+      name:eventtableheaders1[3],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['5'],
+      name:eventtableheaders1[4],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['6'],
+      name:eventtableheaders1[5],
+      width:'10%'
+    },
+    {
+      data:(row)=>row['7'],
+      name:eventtableheaders1[6],
+      width:'10%'
+    },
+    ],
+  fixedHeader: true,
+  height: '300px',
+  data:eventtableheaders,
+}).render(document.getElementById("eventstable"));
+
+
+
+</script>
+
+
+{% endblock %}
