@@ -8,6 +8,9 @@ from sqlalchemy import inspect
 import datetime
 import calendar
 from sqlalchemy.sql import func
+import pytz
+
+
 class User(UserMixin, db.Model):
     id=db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -66,7 +69,7 @@ class Checkins(db.Model):
     
     def get_todays_events(self):
         events = Events.query.order_by(Events.date).all()
-        current_date = datetime.datetime.now().date()
+        current_date=datetime.datetime.now(pytz.timezone('Canada/Pacific')).date()
         multiplier=1
         for event in events:
             if str(event.date.date()) == str(current_date):
