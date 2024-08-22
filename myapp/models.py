@@ -51,7 +51,8 @@ class Checkins(db.Model):
     multiplier= db.Column(db.Integer)
 
     def get_timeslot():
-        current_hour = datetime.datetime.now().hour
+        current_hour = datetime.datetime.now((pytz.timezone('Canada/Pacific'))).hour
+        
         timeslot=0
         if current_hour >=6 and current_hour<=9:
             timeslot=1
@@ -70,6 +71,7 @@ class Checkins(db.Model):
     def get_todays_events(self):
         events = Events.query.order_by(Events.date).all()
         current_date=datetime.datetime.now(pytz.timezone('Canada/Pacific')).date()
+       # print(current_date)
         multiplier=1
         for event in events:
             if str(event.date.date()) == str(current_date):
