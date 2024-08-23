@@ -95,77 +95,81 @@ class Events(db.Model):
 
 
     def get_tableheaders1():
-        events = Events.query.order_by(Events.date).all()
+        current_date=datetime.datetime.now(pytz.timezone('Canada/Pacific')).date()
+        print(current_date)
+        events = Events.query.filter(Events.date>= current_date).all()
+        
+        
         dateslist=[]
         for event in events:
             dateslist.append(event.date.date())
         dateslist=set(dateslist)
         dateslist=sorted(dateslist)
-
+        print(dateslist)
         headers=[]
-        for date in dateslist[1:]:
+        for date in dateslist:
             headers.append(calendar.day_name[date.weekday()])
     
         return headers
 
     def get_tableheaders():
-        events = Events.query.order_by(Events.date).all()
-    
+        current_date=datetime.datetime.now(pytz.timezone('Canada/Pacific')).date()
+        events = Events.query.filter(Events.date>= current_date).all()
         headers=[]
 
         headers.append({
             "Timeslot":"6am -10am",
-            "1":str(events[5].location) + "   "+ str(events[5].multiplier),
-            "2":str(events[10].location) + "   "+ str(events[10].multiplier),
-            "3":str(events[15].location) + "   "+ str(events[15].multiplier),
-            "4":str(events[20].location) + "   "+ str(events[20].multiplier),
-            "5":str(events[25].location) + "   "+ str(events[25].multiplier),
-            "6":str(events[30].location) + "   "+ str(events[30].multiplier),
-            "7":str(events[35].location) + "   "+ str(events[35].multiplier)
+            "1":str(events[0].location) + "   "+ str(events[0].multiplier),
+            "2":str(events[5].location) + "   "+ str(events[5].multiplier),
+            "3":str(events[10].location) + "   "+ str(events[10].multiplier),
+            "4":str(events[15].location) + "   "+ str(events[15].multiplier),
+            "5":str(events[20].location) + "   "+ str(events[20].multiplier),
+            "6":str(events[25].location) + "   "+ str(events[25].multiplier),
+            "7":str(events[30].location) + "   "+ str(events[30].multiplier)
             })
         headers.append({
             
             "Timeslot":"10am -2pm",
-            "1":str(events[6].location) + "   "+ str(events[6].multiplier),
-            "2":str(events[11].location) + "   "+ str(events[11].multiplier),
-            "3":str(events[16].location) + "   "+ str(events[16].multiplier),
-            "4":str(events[21].location) + "   "+ str(events[21].multiplier),
-            "5":str(events[26].location) + "   "+ str(events[26].multiplier),
-            "6":str(events[31].location) + "   "+ str(events[31].multiplier),
-            "7":str(events[36].location) + "   "+ str(events[36].multiplier)
+            "1":str(events[1].location) + "   "+ str(events[1].multiplier),
+            "2":str(events[6].location) + "   "+ str(events[6].multiplier),
+            "3":str(events[11].location) + "   "+ str(events[11].multiplier),
+            "4":str(events[16].location) + "   "+ str(events[16].multiplier),
+            "5":str(events[21].location) + "   "+ str(events[21].multiplier),
+            "6":str(events[26].location) + "   "+ str(events[26].multiplier),
+            "7":str(events[31].location) + "   "+ str(events[31].multiplier)
             })
         headers.append({
             
             "Timeslot":"2pm -6pm",
-            "1":str(events[7].location) + "   "+ str(events[7].multiplier),
-            "2":str(events[12].location) + "   "+ str(events[12].multiplier),
-            "3":str(events[17].location) + "   "+ str(events[17].multiplier),
-            "4":str(events[22].location) + "   "+ str(events[22].multiplier),
-            "5":str(events[27].location) + "   "+ str(events[27].multiplier),
-            "6":str(events[32].location) + "   "+ str(events[32].multiplier),
-            "7":str(events[37].location) + "   "+ str(events[37].multiplier),
+            "1":str(events[2].location) + "   "+ str(events[2].multiplier),
+            "2":str(events[7].location) + "   "+ str(events[7].multiplier),
+            "3":str(events[12].location) + "   "+ str(events[12].multiplier),
+            "4":str(events[17].location) + "   "+ str(events[17].multiplier),
+            "5":str(events[22].location) + "   "+ str(events[22].multiplier),
+            "6":str(events[27].location) + "   "+ str(events[27].multiplier),
+            "7":str(events[32].location) + "   "+ str(events[32].multiplier),
             })
         headers.append({
             
             "Timeslot":"6pm -10pm",
-            "1":str(events[8].location) + "   "+ str(events[8].multiplier),
-            "2":str(events[13].location) + "   "+ str(events[13].multiplier),
-            "3":str(events[18].location) + "   "+ str(events[18].multiplier),
-            "4":str(events[23].location) + "   "+ str(events[23].multiplier),
-            "5":str(events[28].location) + "   "+ str(events[28].multiplier),
-            "6":str(events[33].location) + "   "+ str(events[33].multiplier),
-            "7":str(events[38].location) + "   "+ str(events[38].multiplier)
+            "1":str(events[3].location) + "   "+ str(events[3].multiplier),
+            "2":str(events[8].location) + "   "+ str(events[7].multiplier),
+            "3":str(events[13].location) + "   "+ str(events[13].multiplier),
+            "4":str(events[18].location) + "   "+ str(events[18].multiplier),
+            "5":str(events[23].location) + "   "+ str(events[23].multiplier),
+            "6":str(events[28].location) + "   "+ str(events[28].multiplier),
+            "7":str(events[33].location) + "   "+ str(events[33].multiplier)
             })
         headers.append({
             
             "Timeslot":"10pm -2am",
-            "1":str(events[9].location) + "   "+ str(events[9].multiplier),
-            "2":str(events[14].location) + "   "+ str(events[14].multiplier),
-            "3":str(events[19].location) + "   "+ str(events[19].multiplier),
-            "4":str(events[24].location) + "   "+ str(events[24].multiplier),
-            "5":str(events[29].location) + "   "+ str(events[29].multiplier),
-            "6":str(events[34].location) + "   "+ str(events[34].multiplier),
-            "7":str(events[39].location) + "   "+ str(events[39].multiplier)
+            "1":str(events[4].location) + "   "+ str(events[4].multiplier),
+            "2":str(events[9].location) + "   "+ str(events[9].multiplier),
+            "3":str(events[14].location) + "   "+ str(events[14].multiplier),
+            "4":str(events[19].location) + "   "+ str(events[19].multiplier),
+            "5":str(events[24].location) + "   "+ str(events[24].multiplier),
+            "6":str(events[29].location) + "   "+ str(events[29].multiplier),
+            "7":str(events[34].location) + "   "+ str(events[34].multiplier)
             })
         
         return headers
