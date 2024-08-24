@@ -57,20 +57,20 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('new_checkin'))
     
     return render_template('register.html', title="Register", form=form)
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('home'))
+        return redirect(url_for('new_checkin'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username = form.username.data).first()
         if user and check_password_hash(user.password_hash, form.password.data):
             login_user(user, remember=True)
-            return redirect(url_for('home'))
+            return redirect(url_for('new_checkin'))
     error="Invalid username or password"
     return render_template('login.html', form=form, error=error)
     

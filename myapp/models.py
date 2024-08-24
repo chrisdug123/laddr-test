@@ -114,8 +114,11 @@ class Events(db.Model):
 
     def get_tableheaders():
         current_date=datetime.datetime.now(pytz.timezone('Canada/Pacific')).date()
-        events = Events.query.filter(Events.date>= current_date).all()
+        events = Events.query.filter(Events.date>= current_date).order_by(Events.date).all()
         headers=[]
+
+        
+
 
         headers.append({
             "Timeslot":"6am -10am",
@@ -172,6 +175,13 @@ class Events(db.Model):
             "7":str(events[34].location) + "   "+ str(events[34].multiplier)
             })
         
+        print(headers[0])
+
+        for head in headers:
+            for x in range (1,7):
+                if "None" in head[str(x)]:
+                    head[str(x)]=""
+
         return headers
 
         
